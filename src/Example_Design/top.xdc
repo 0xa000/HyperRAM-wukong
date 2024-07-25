@@ -7,46 +7,56 @@
 # Pin locations and I/O standards
 #############################################################################################################
 
-## External clock signal (connected to 100 MHz oscillator)
-set_property -dict {PACKAGE_PIN V13  IOSTANDARD LVCMOS33}                                    [get_ports {sys_clk_i}]
+## External clock signal (connected to 50 MHz oscillator)
+set_property -dict {PACKAGE_PIN M21  IOSTANDARD LVCMOS33}                                    [get_ports {sys_clk_i}]
 
-## Reset signal (Active low. From MAX10)
-set_property -dict {PACKAGE_PIN M13  IOSTANDARD LVCMOS33}                                    [get_ports {sys_rstn_i}]
+## Reset signal
+set_property -dict {PACKAGE_PIN H7   IOSTANDARD LVCMOS33}                                    [get_ports {sys_rstn_i}]
+
+## LEDs (active low).
+set_property -dict {PACKAGE_PIN V17 IOSTANDARD LVCMOS33} [get_ports {leds[0]}];
+set_property -dict {PACKAGE_PIN V16 IOSTANDARD LVCMOS33} [get_ports {leds[1]}];
+
+## Extenal LEDs (active low).
+#set_property -dict {PACKAGE_PIN U26  IOSTANDARD LVCMOS33} [get_ports {ext_leds[0]}]; # J12:22 | IO_L1N_T0_13
+#set_property -dict {PACKAGE_PIN W23  IOSTANDARD LVCMOS33} [get_ports {ext_leds[1]}]; # J12:26 | IO_L10N_T1_13
+#set_property -dict {PACKAGE_PIN V22  IOSTANDARD LVCMOS33} [get_ports {ext_leds[2]}]; # J12:30 | IO_L12N_T1_MRCC_13
+#set_property -dict {PACKAGE_PIN U20  IOSTANDARD LVCMOS33} [get_ports {ext_leds[3]}]; # J12:34 | IO_L15N_T2_DQS_13
 
 ## HyperRAM (connected to IS66WVH8M8BLL-100B1LI, 64 Mbit, 100 MHz, 3.0 V, single-ended clock).
 ## SLEW and DRIVE set to maximum performance to reduce rise and fall times, and therefore
 ## give better timing margins.
-set_property -dict {PACKAGE_PIN B22  IOSTANDARD LVCMOS33  PULLTYPE {}                          } [get_ports {hr_resetn}]
-set_property -dict {PACKAGE_PIN C22  IOSTANDARD LVCMOS33  PULLTYPE {}                          } [get_ports {hr_csn}]
-set_property -dict {PACKAGE_PIN D22  IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST  DRIVE 16} [get_ports {hr_ck}]
-set_property -dict {PACKAGE_PIN B21  IOSTANDARD LVCMOS33  PULLTYPE PULLDOWN SLEW FAST  DRIVE 16} [get_ports {hr_rwds}]
-set_property -dict {PACKAGE_PIN A21  IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST  DRIVE 16} [get_ports {hr_dq[0]}]
-set_property -dict {PACKAGE_PIN D21  IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST  DRIVE 16} [get_ports {hr_dq[1]}]
-set_property -dict {PACKAGE_PIN C20  IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST  DRIVE 16} [get_ports {hr_dq[2]}]
-set_property -dict {PACKAGE_PIN A20  IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST  DRIVE 16} [get_ports {hr_dq[3]}]
-set_property -dict {PACKAGE_PIN B20  IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST  DRIVE 16} [get_ports {hr_dq[4]}]
-set_property -dict {PACKAGE_PIN A19  IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST  DRIVE 16} [get_ports {hr_dq[5]}]
-set_property -dict {PACKAGE_PIN E21  IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST  DRIVE 16} [get_ports {hr_dq[6]}]
-set_property -dict {PACKAGE_PIN E22  IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST  DRIVE 16} [get_ports {hr_dq[7]}]
+set_property -dict {PACKAGE_PIN B4   IOSTANDARD LVCMOS33  PULLTYPE {}                         } [get_ports {hr_resetn}]
+set_property -dict {PACKAGE_PIN F4   IOSTANDARD LVCMOS33  PULLTYPE {}                         } [get_ports {hr_csn}   ]
+set_property -dict {PACKAGE_PIN A4   IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST DRIVE 16} [get_ports {hr_ck}    ]
+set_property -dict {PACKAGE_PIN B5   IOSTANDARD LVCMOS33  PULLTYPE PULLDOWN SLEW FAST DRIVE 16} [get_ports {hr_rwds}  ]
+set_property -dict {PACKAGE_PIN D5   IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST DRIVE 16} [get_ports {hr_dq[0]} ]
+set_property -dict {PACKAGE_PIN G5   IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST DRIVE 16} [get_ports {hr_dq[1]} ]
+set_property -dict {PACKAGE_PIN G7   IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST DRIVE 16} [get_ports {hr_dq[2]} ]
+set_property -dict {PACKAGE_PIN G8   IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST DRIVE 16} [get_ports {hr_dq[3]} ]
+set_property -dict {PACKAGE_PIN G6   IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST DRIVE 16} [get_ports {hr_dq[4]} ]
+set_property -dict {PACKAGE_PIN D6   IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST DRIVE 16} [get_ports {hr_dq[5]} ]
+set_property -dict {PACKAGE_PIN E6   IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST DRIVE 16} [get_ports {hr_dq[6]} ]
+set_property -dict {PACKAGE_PIN E5   IOSTANDARD LVCMOS33  PULLTYPE {}       SLEW FAST DRIVE 16} [get_ports {hr_dq[7]} ]
 
 ## Keyboard interface (connected to MAX10)
-set_property -dict {PACKAGE_PIN A14  IOSTANDARD LVCMOS33}                                    [get_ports {kb_io0}]
-set_property -dict {PACKAGE_PIN A13  IOSTANDARD LVCMOS33}                                    [get_ports {kb_io1}]
-set_property -dict {PACKAGE_PIN C13  IOSTANDARD LVCMOS33}                                    [get_ports {kb_io2}]
+#set_property -dict {PACKAGE_PIN A14  IOSTANDARD LVCMOS33} [get_ports {kb_io0}]
+#set_property -dict {PACKAGE_PIN A13  IOSTANDARD LVCMOS33} [get_ports {kb_io1}]
+#set_property -dict {PACKAGE_PIN C13  IOSTANDARD LVCMOS33} [get_ports {kb_io2}]
 
 # USB-RS232 Interface
-set_property -dict {PACKAGE_PIN L14  IOSTANDARD LVCMOS33} [get_ports {uart_rx_i}];
-set_property -dict {PACKAGE_PIN L13  IOSTANDARD LVCMOS33} [get_ports {uart_tx_o}];
+set_property -dict {PACKAGE_PIN F3   IOSTANDARD LVCMOS33} [get_ports {uart_rx_i}]
+set_property -dict {PACKAGE_PIN E3   IOSTANDARD LVCMOS33} [get_ports {uart_tx_o}]
 
 # HDMI output
-set_property -dict {PACKAGE_PIN Y1   IOSTANDARD TMDS_33}  [get_ports {hdmi_clk_n}]
-set_property -dict {PACKAGE_PIN W1   IOSTANDARD TMDS_33}  [get_ports {hdmi_clk_p}]
-set_property -dict {PACKAGE_PIN AB1  IOSTANDARD TMDS_33}  [get_ports {hdmi_data_n[0]}]
-set_property -dict {PACKAGE_PIN AA1  IOSTANDARD TMDS_33}  [get_ports {hdmi_data_p[0]}]
-set_property -dict {PACKAGE_PIN AB2  IOSTANDARD TMDS_33}  [get_ports {hdmi_data_n[1]}]
-set_property -dict {PACKAGE_PIN AB3  IOSTANDARD TMDS_33}  [get_ports {hdmi_data_p[1]}]
-set_property -dict {PACKAGE_PIN AB5  IOSTANDARD TMDS_33}  [get_ports {hdmi_data_n[2]}]
-set_property -dict {PACKAGE_PIN AA5  IOSTANDARD TMDS_33}  [get_ports {hdmi_data_p[2]}]
+#set_property -dict {PACKAGE_PIN C4   IOSTANDARD TMDS_33}  [get_ports {hdmi_clk_n}]
+#set_property -dict {PACKAGE_PIN D4   IOSTANDARD TMDS_33}  [get_ports {hdmi_clk_p}]
+#set_property -dict {PACKAGE_PIN D1   IOSTANDARD TMDS_33}  [get_ports {hdmi_data_n[0]}]
+#set_property -dict {PACKAGE_PIN E1   IOSTANDARD TMDS_33}  [get_ports {hdmi_data_p[0]}]
+#set_property -dict {PACKAGE_PIN E2   IOSTANDARD TMDS_33}  [get_ports {hdmi_data_n[1]}]
+#set_property -dict {PACKAGE_PIN F2   IOSTANDARD TMDS_33}  [get_ports {hdmi_data_p[1]}]
+#set_property -dict {PACKAGE_PIN G1   IOSTANDARD TMDS_33}  [get_ports {hdmi_data_n[2]}]
+#set_property -dict {PACKAGE_PIN G2   IOSTANDARD TMDS_33}  [get_ports {hdmi_data_p[2]}]
 
 
 ############################################################################################################
@@ -54,7 +64,7 @@ set_property -dict {PACKAGE_PIN AA5  IOSTANDARD TMDS_33}  [get_ports {hdmi_data_
 ############################################################################################################
 
 ## Primary clock input
-create_clock -period 10.000 -name sys_clk [get_ports sys_clk_i]
+create_clock -period 20.000 -name sys_clk [get_ports sys_clk_i]
 
 
 ########### HypeRAM timing #################
@@ -124,27 +134,25 @@ set_input_delay -min [expr $tCKHP + $tDSHmin] -clock hr_rwds [get_ports hr_dq[*]
 
 ########### MEGA65 timing ################
 # Rename autogenerated clocks
-create_generated_clock -name kbd_clk    [get_pins i_mega65/i_clk_mega65/i_clk_mega65/CLKOUT0]
-create_generated_clock -name pixel_clk  [get_pins i_mega65/i_clk_mega65/i_clk_mega65/CLKOUT1]
-create_generated_clock -name pixel_clk5 [get_pins i_mega65/i_clk_mega65/i_clk_mega65/CLKOUT2]
+#create_generated_clock -name kbd_clk    [get_pins i_mega65/i_clk_mega65/i_clk_mega65/CLKOUT0]
+#create_generated_clock -name pixel_clk  [get_pins i_mega65/i_clk_mega65/i_clk_mega65/CLKOUT1]
+#create_generated_clock -name pixel_clk5 [get_pins i_mega65/i_clk_mega65/i_clk_mega65/CLKOUT2]
 
 # MEGA65 I/O timing is ignored (considered asynchronous)
-set_false_path   -to [get_ports hdmi_data_p[*]]
-set_false_path   -to [get_ports hdmi_clk_p]
-set_false_path   -to [get_ports kb_io0]
-set_false_path   -to [get_ports kb_io1]
-set_false_path -from [get_ports kb_io2]
+#set_false_path   -to [get_ports hdmi_data_p[*]]
+#set_false_path   -to [get_ports hdmi_clk_p]
+#set_false_path   -to [get_ports kb_io0]
+#set_false_path   -to [get_ports kb_io1]
+#set_false_path -from [get_ports kb_io2]
 
 
 #############################################################################################################
 # Configuration and Bitstream properties
 #############################################################################################################
 
-set_property CONFIG_VOLTAGE                  3.3   [current_design]
-set_property CFGBVS                          VCCO  [current_design]
-set_property BITSTREAM.GENERAL.COMPRESS      TRUE  [current_design]
-set_property BITSTREAM.CONFIG.CONFIGRATE     66    [current_design]
-set_property CONFIG_MODE                     SPIx4 [current_design]
-set_property BITSTREAM.CONFIG.SPI_32BIT_ADDR YES   [current_design]
-set_property BITSTREAM.CONFIG.SPI_BUSWIDTH   4     [current_design]
-
+set_property CFGBVS                         VCCO    [current_design];
+set_property CONFIG_VOLTAGE                 3.3     [current_design];
+set_property BITSTREAM.CONFIG.UNUSEDPIN     PULLUP  [current_design];
+set_property BITSTREAM.CONFIG.SPI_BUSWIDTH  4       [current_design];
+set_property CONFIG_MODE                    SPIx4   [current_design];
+set_property BITSTREAM.CONFIG.CONFIGRATE    50      [current_design];

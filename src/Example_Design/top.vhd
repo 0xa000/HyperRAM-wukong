@@ -19,25 +19,28 @@ entity top is
       hr_dq       : inout std_logic_vector(7 downto 0);
 
       -- MEGA65 keyboard
-      kb_io0      : out   std_logic;
-      kb_io1      : out   std_logic;
-      kb_io2      : in    std_logic;
+      --kb_io0      : out   std_logic;
+      --kb_io1      : out   std_logic;
+      --kb_io2      : in    std_logic;
 
       -- UART
       uart_rx_i   : in    std_logic;
       uart_tx_o   : out   std_logic;
 
       -- MEGA65 Digital Video (HDMI)
-      hdmi_data_p : out   std_logic_vector(2 downto 0);
-      hdmi_data_n : out   std_logic_vector(2 downto 0);
-      hdmi_clk_p  : out   std_logic;
-      hdmi_clk_n  : out   std_logic
+      --hdmi_data_p : out   std_logic_vector(2 downto 0);
+      --hdmi_data_n : out   std_logic_vector(2 downto 0);
+      --hdmi_clk_p  : out   std_logic;
+      --hdmi_clk_n  : out   std_logic;
+
+      -- LEDs
+      leds        : out   std_logic_vector(1 downto 0)
    );
 end entity top;
 
 architecture synthesis of top is
 
-   constant C_SYS_ADDRESS_SIZE : integer := 17;
+   constant C_SYS_ADDRESS_SIZE : integer := 14;
    constant C_ADDRESS_SIZE     : integer := 20;
    constant C_DATA_SIZE        : integer := 64;
 
@@ -48,10 +51,10 @@ architecture synthesis of top is
    signal hr_rst               : std_logic;
 
    -- Control and Status for trafic generator
-   signal sys_up               : std_logic;
-   signal sys_left             : std_logic;
-   signal sys_up_d             : std_logic;
-   signal sys_left_d           : std_logic;
+   --signal sys_up               : std_logic;
+   --signal sys_left             : std_logic;
+   --signal sys_up_d             : std_logic;
+   --signal sys_left_d           : std_logic;
    signal sys_start            : std_logic;
    signal sys_valid            : std_logic;
    signal sys_active           : std_logic;
@@ -139,24 +142,28 @@ begin
          G_DIGITS_SIZE => sys_digits'length
       )
       port map (
-         sys_clk_i    => sys_clk_i,
-         sys_rstn_i   => sys_rstn_i,
-         sys_up_o     => sys_up,
-         sys_left_o   => sys_left,
+         --sys_clk_i    => sys_clk_i,
+         --sys_rstn_i   => sys_rstn_i,
+         sys_clk_i    => hr_clk,
+         sys_rst_i    => hr_rst,
+         sys_up_o     => open,
+         sys_left_o   => open,
          sys_start_o  => sys_start,
          sys_active_i => sys_active,
          sys_error_i  => sys_error,
          sys_digits_i => sys_digits,
          uart_rx_i    => uart_rx_i,
-         uart_tx_o    => uart_tx_o,
-         kb_io0       => kb_io0,
-         kb_io1       => kb_io1,
-         kb_io2       => kb_io2,
-         hdmi_data_p  => hdmi_data_p,
-         hdmi_data_n  => hdmi_data_n,
-         hdmi_clk_p   => hdmi_clk_p,
-         hdmi_clk_n   => hdmi_clk_n
+         uart_tx_o    => uart_tx_o
+         --kb_io0       => kb_io0,
+         --kb_io1       => kb_io1,
+         --kb_io2       => kb_io2,
+         --hdmi_data_p  => hdmi_data_p,
+         --hdmi_data_n  => hdmi_data_n,
+         --hdmi_clk_p   => hdmi_clk_p,
+         --hdmi_clk_n   => hdmi_clk_n
       ); -- i_mega65
+
+   leds(0) <= not sys_active;
 
 end architecture synthesis;
 

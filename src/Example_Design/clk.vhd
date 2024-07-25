@@ -18,7 +18,7 @@ use xpm.vcomponents.all;
 
 entity clk is
    port (
-      sys_clk_i      : in  std_logic;   -- expects 100 MHz
+      sys_clk_i      : in  std_logic;   -- expects 50 MHz
       sys_rstn_i     : in  std_logic;   -- Asynchronous, asserted low
       clk_o          : out std_logic;   -- 100 MHz
       clk_del_o      : out std_logic;   -- 100 MHz phase shifted 90 degrees
@@ -47,10 +47,10 @@ begin
          CLKOUT4_CASCADE      => FALSE,
          COMPENSATION         => "ZHOLD",
          STARTUP_WAIT         => FALSE,
-         CLKIN1_PERIOD        => 10.0,       -- INPUT @ 100 MHz
+         CLKIN1_PERIOD        => 20.0,       -- INPUT @ 50 MHz
          REF_JITTER1          => 0.010,
          DIVCLK_DIVIDE        => 1,
-         CLKFBOUT_MULT_F      => 12.000,
+         CLKFBOUT_MULT_F      => 24.000,
          CLKFBOUT_PHASE       => 0.000,
          CLKFBOUT_USE_FINE_PS => FALSE,
          CLKOUT1_DIVIDE       => 6,          -- 200 MHz
@@ -145,4 +145,3 @@ begin
       ); -- i_xpm_cdc_sync_rst_pixel
 
 end architecture synthesis;
-
